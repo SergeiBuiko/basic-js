@@ -38,7 +38,7 @@ function createDreamTeam(members) {
         el = el.split(' ').join('');
         console.log(el);
         arr.push(el[0].toUpperCase());
-        console.log(arr);
+        //console.log(arr);
       }
   }
   return arr.sort().join('')
