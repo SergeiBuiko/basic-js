@@ -13,43 +13,61 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-function transform(arr) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
 
-
-  //console.log(arr.splice(3, 2));
+//console.log(arr.splice(3, 2));
 // console.log(arr);
+let arr = transform([1, '--double-next', 2, '--discard-prev', 3, '--discard-next', 8, 5]) //=> [1, 2, 3, 5]
 function transform(arr) {
 
-  arr = arr.map((element, index) => {
-  if (element === '--discard-next') {
-    //console.log(arr.splice(index  + 1, 1));
-    //console.log(element);
-    //element === 0
-    return 'NAN'
+  if (Array.isArray(arr)) {
+      arr = arr.map((element, index) => {
+          if (element === '--double-next') {
+  
+              return arr[index + 1]
+          }
+  
+          else if (element === '--double-prev') {
+  
+              return arr[index - 1]
+          }
+          else if (element === '--discard-next') {
+  
+              arr[index + 1] = 'del';
+  
+              //console.log(arr);
+              
+              //return element = 'del';
+          }
+          else if (element === '--discard-prev') {
+  
+              arr[index - 1] = 'del';
+              console.log(arr);
+              //return element = 'del';
+          }
+          
+          else return element
+  
+      });
+      console.log(arr);
+      let arr2 = arr.filter(elem => {
+          if (elem !== 'del') {
+  
+              return elem
+  
+          }
+      })
+      
+      return arr2
+  
   }
-  else return element
-  console.log(arr);    
-  });
-    
-  
- 
-  //arr = arr.map((el, index) => el === '--discard-next' ? arr[index + 1] : el);
-  
-  
-  // arr = arr.map((el, index) => el === '--double-next' ? arr[index + 1] : el);
-  // arr = arr.map((el, index) => el === '--double-prev' ? arr[index - 1] : el);
+  else 
+  throw new Error ("\'arr\' parameter must be an instance of the Array!")
+      //arr = arr.map((el, index) => el === '--discard-next' ? arr[index + 1] : el);
+      // arr2 = arr.map((el, index) => el === '--double-next' ? arr[index + 1] : el);
+      // arr2 = arr.map((el, index) => el === '--double-prev' ? arr[index - 1] : el);
+      //      throws an Error with message ("\'arr\' parameter must be an instance of the Array!")
 
-  
-  return arr
-  
-  
-  
-
-}
-console.log(transform(arr));
-}
+  }
 
 module.exports = {
   transform
